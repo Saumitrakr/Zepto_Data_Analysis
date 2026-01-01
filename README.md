@@ -1,26 +1,10 @@
-# 🛒 Zepto E-commerce SQL Data Analyst Portfolio Project
+# 🛒 Zepto E-commerce SQL Data Analyst Project
 This is a complete, real-world data analyst portfolio project based on an e-commerce inventory dataset scraped from [Zepto](https://www.zeptonow.com/) — one of India’s fastest-growing quick-commerce startups. This project simulates real analyst workflows, from raw data exploration to business-focused data analysis.
 
-This project is perfect for:
-- 📊 Data Analyst aspirants who want to build a strong **Portfolio Project** for interviews and LinkedIn
-- 📚 Anyone learning SQL hands-on
-- 💼 Preparing for interviews in retail, e-commerce, or product analytics
-
-# **🎥 Watch this [YouTube video](https://www.youtube.com/watch?v=x8dfQkKTyP0&list=PLAx-M6Di0SisFJ1rv5M_FRHUlGA5rtUf_&index=2) to implement the full project from scratch:**  
-[![SQL Data Analyst Portfolio Project using Zepto Inventory Dataset](https://github.com/user-attachments/assets/a1895ada-15e4-4f98-aa0d-597a4092c845)](https://www.youtube.com/watch?v=x8dfQkKTyP0&list=PLAx-M6Di0SisFJ1rv5M_FRHUlGA5rtUf_&index=2)
-🔗 *Link to Video:* [Watch on Youtube](https://www.youtube.com/watch?v=x8dfQkKTyP0&list=PLAx-M6Di0SisFJ1rv5M_FRHUlGA5rtUf_&index=2)
 
 ## 📌 Project Overview
 
-The goal is to simulate how actual data analysts in the e-commerce or retail industries work behind the scenes to use SQL to:
-
-✅ Set up a messy, real-world e-commerce inventory **database**
-
-✅ Perform **Exploratory Data Analysis (EDA)** to explore product categories, availability, and pricing inconsistencies
-
-✅ Implement **Data Cleaning** to handle null values, remove invalid entries, and convert pricing from paise to rupees
-
-✅ Write **business-driven SQL queries** to derive insights around **pricing, inventory, stock availability, revenue** and more
+This project uses a Zepto-style grocery SKU dataset to answer real-world business, product, and data analytics questions using SQL. The objective is to demonstrate data-driven decision-making around pricing, discounts, inventory management, demand forecasting, and category optimization—aligned with expectations for Product Analyst, Data Analyst, and Business Analyst roles.
 
 ## 📁 Dataset Overview
 The dataset was sourced from [Kaggle](https://www.kaggle.com/datasets/palvinder2006/zepto-inventory-dataset/data?select=zepto_v2.csv) and was originally scraped from Zepto’s official product listings. It mimics what you’d typically encounter in a real-world e-commerce inventory system.
@@ -71,15 +55,7 @@ CREATE TABLE zepto (
 ```
 
 ### 2. Data Import
-- Loaded CSV using pgAdmin's import feature.
-
- - If you're not able to use the import feature, write this code instead:
-```sql
-   \copy zepto(category,name,mrp,discountPercent,availableQuantity,
-            discountedSellingPrice,weightInGms,outOfStock,quantity)
-  FROM 'data/zepto_v2.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', ENCODING 'UTF8');
-```
-- Faced encoding issues (UTF-8 error), which were fixed by saving the CSV file using CSV UTF-8 format.
+- Loaded CSV using Table Data Import Wizard
 
 ### 3. 🔍 Data Exploration
 - Counted the total number of records in the dataset
@@ -100,70 +76,69 @@ CREATE TABLE zepto (
 - Converted mrp and discountedSellingPrice from paise to rupees for consistency and readability
   
 ### 5. 📊 Business Insights
-- Found top 10 best-value products based on discount percentage
 
-- Identified high-MRP products that are currently out of stock
+#### 1️⃣ Pricing & Discount Strategy (Product + Business)
 
-- Estimated potential revenue for each product category
+1. Which SKUs offer the highest absolute discount (MRP − Selling Price)?
 
-- Filtered expensive products (MRP > ₹500) with minimal discount
+2. Which categories have the highest average discount percentage?
 
-- Ranked top 5 categories offering highest average discounts
+3. Is there a correlation between discount percentage and quantity sold?
 
-- Calculated price per gram to identify value-for-money products
+4. Which products are over-discounted (high discount but low sales volume)?
 
-- Grouped products based on weight into Low, Medium, and Bulk categories
+5. What percentage of revenue comes from discounted vs non-discounted items?
 
-- Measured total inventory weight per product category
+6. Are heavier products given lower discounts compared to lighter ones?
 
+7. Identify SKUs where the discounted price is close to MRP but sales are high—can discounts be optimized?
 
-## 🛠️ How to Use This Project
+#### 2️⃣ Inventory & Supply Chain Analytics
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/amlanmohanty/zepto-SQL-data-analysis-project.git
-   cd zepto-SQL-data-analysis-project
-   ```
-2. **Open zepto_SQL_data_analysis.sql**
+8. Which SKUs are at risk of stockout based on low availableQuantity and high sales?
 
-    This file contains:
+9. Which categories have the highest out-of-stock rate?
 
-      - Table creation
+10. Identify products where availableQuantity is high but sales are low (dead inventory).
 
-      - Data exploration
+11. What is the average inventory per category, and how does it compare to demand?
 
-      - Data cleaning
+12. Which SKUs contribute to the maximum inventory holding without proportional sales?
 
-      - SQL Business analysis
-  
-3. **Load the dataset into pgAdmin or any other PostgreSQL client**
+13. How many SKUs are out of stock but still have recorded demand?
 
-      - Create a database and run the SQL file
+#### 3️⃣ Demand & Sales Performance
 
-      - Import the dataset (convert to UTF-8 if necessary)
+14. What are the top 10 best-selling SKUs by quantity?
 
-4. **Follow along with the YouTube video for full walkthrough. 👨‍💼**
+15. Which categories generate the highest total revenue?
 
-## 📜 License
+16. What is the average order quantity per SKU, and which products are bulk-buy items?
 
-MIT — feel free to fork, star, and use in your portfolio.
+17. Identify high-demand but low-availability products (supply constraint analysis).
 
-## 👨‍💻 About the Author
-Hey, I’m Amlan Mohanty — a Data Analyst & Content Creator.
-I break down complex data topics into simple, practical content that actually helps you land a job.
+18. Which products show high sales despite low discounts (strong intrinsic demand)?
 
- ### 🚀 Stay Connected & Join the Data Drool Community
-If you enjoyed this project and want to keep learning and growing as a data analyst, let’s stay in touch! I regularly share content around SQL, data analytics, portfolio projects, job tips, and more.
+#### 4️⃣ Category & Product Mix Optimization
 
-🎥 YouTube: [Data Drool](https://www.youtube.com/@datadrool)
-- Beginner-friendly tutorials, real-world projects, job and career advice
+19. Which category has the highest revenue per SKU?
 
-📺 Instagram: [data.drool](https://www.instagram.com/data.drool/)
-- Quick SQL tips, data memes, and behind-the-scenes content
+20. What percentage of SKUs in each category contribute to 80% of category revenue (Pareto analysis)?
 
-💼 LinkedIn: [Amlan Mohanty](https://www.linkedin.com/in/amlanmohanty1/)
-- Let’s connect professionally and grow your data career
+21. Are there categories where many SKUs exist but contribute little revenue?
+
+22. Which categories rely heavily on discount-driven sales?
+
+23. What is the average price per gram/kg by category, and are there pricing inconsistencies?
+
+#### 5️⃣ Operational & Product Decision Questions
+
+24. Which SKUs should be prioritized for restocking based on demand-to-availability ratio?
+
+25. If discounts were reduced by 2–3%, which products are least likely to be impacted based on historical demand?
 
 
-## 💡 Thanks for checking out the project! Your support means a lot — feel free to star ⭐ this repo or share it with someone learning SQL.🚀
+
+
+## 💡 Thanks for checking out the project!
 
